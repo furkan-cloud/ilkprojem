@@ -1,7 +1,9 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
+
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -12,26 +14,38 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card mb-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img class="card-img" src="{% static 'img/1.jpg'%}" alt="">
-                        <div class="card-body">
-                            <div class="card-title">
-                                High life
+
+            {% if quotes %}
+                {% for quote in quotes %}
+                    <div class="card mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img class="card-img" src="{% static quote.get_image_path %}" alt="">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <a href="{% url 'detail' quote.id %}">{{ quote.name }}</a>
+                                </div>
+                                <p class="card-text">
+                                    {{quote.description}}
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">{{ quote.created_date | timesince }}</small>
+                                </p>
                             </div>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nostrum deserunt sunt dolor veniam doloremque.
-                            </p>
-                            <p class="card-text">
-                                <small class="text-muted">3 days ago</small>
-                            </p>
                         </div>
-                    </div>
+                        
                     
-                
+                    </div>
+                 
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">
+                    <p>
+                        No quotes
+                    </p>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
