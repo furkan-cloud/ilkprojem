@@ -1,5 +1,17 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Detail Page</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="card-img" src="{% static quote.get_image_path %}" alt="">
+        </div>
+        <div class="col-md-9">
+            <h1>{{ quote.name }}</h1>
+            <hr>
+            <p>
+                {{ quote.description }}
+            </p>
+        </div>
+    </div>
 {% endblock %}
