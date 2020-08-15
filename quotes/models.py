@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -14,3 +15,15 @@ class Quote(models.Model):
 
     def get_image_path(self):
         return '/img/'+ self.image
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'quote_id': self.id})
+        # return "/quotes/{}".format(self.id)
+    def get_create_url(self):
+        return reverse('create')
+    
+    def get_update_url(self):
+        return reverse('update', kwargs={'quote_id': self.id})
+
+    def get_delete_url(self):
+        return reverse('delete', kwargs={'quote_id': self.id})

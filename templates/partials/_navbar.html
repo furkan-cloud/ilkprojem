@@ -7,6 +7,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+            <li {% if 'create' in request.path %}
+                    class="nav-item active"
+                {% else %}
+                    class="nav-item"
+                {% endif %}>
+            <a class="nav-link" href="{% url 'create' %}">Yazı Ekle</a>
+            </li>
             <li {% if request.path == '/' %}
                     class="nav-item active"
                 {% else %}

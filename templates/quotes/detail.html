@@ -10,7 +10,11 @@
             <h1>{{ quote.name }}</h1>
             <hr>
             <p>
-                {{ quote.description }}
+                {{ quote.description | linebreaks }}
+            </p>
+            <p><a href="{{ quote.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
+                <a href="{{ quote.get_update_url }}" class="btn btn-default" role="button">Güncelle</a>
+                <a href="{{ quote.get_delete_url }}" class="btn btn-danger" role="button">Sil</a>
             </p>
         </div>
     </div>

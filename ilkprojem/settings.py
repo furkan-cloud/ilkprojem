@@ -31,8 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # kendi uygulamalarım
     'quotes.apps.QuotesConfig',
     'pages.apps.PagesConfig',
+    # 3.parti uygulamalar
+    'crispy_forms',
+    # Django uygulamaları
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +130,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

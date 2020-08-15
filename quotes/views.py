@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.http import Http404
 from .models import Quote
+from .forms import QuoteForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -23,12 +24,30 @@ def search(request):
     return render(request, 'quotes/search.html')
 
 def create(request):
-    return render(request, 'quotes/create.html')
+    form = QuoteForm(request.POST or None)
+    if form.is_valid():
+        quote = form.save()
+        messages.success(request, 'Başarılı bir şekilde oluşturdunuz')
+        return HttpResponseRedirect(quote.get_absolute_url())
+    context = {
+        'form': form,
+    }
+    return render(request, 'quotes/form.html', context)
 
-def update(request):
-    return render(request, 'quotes/update.html')
+def update(request, quote_id):
+    quote = get_object_or_404(Quote, pk = quote_id)
+    form = QuoteForm(request.POST or None, instance=quote)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Başarılı bir şekilde oluşturdunuz')
+        return HttpResponseRedirect(quote.get_absolute_url())
+    context = {
+        'form': form,
+    }
+    return render(request, 'quotes/form.html', context)
+
 
 def delete(request, quote_id):
     quote = get_object_or_404(Quote, pk = quote_id)
     quote.delete()
-    return redirect('quotes:search')
+    return redirect('/quotes')
