@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.http import Http404
 from .models import Quote
-from .forms import QuoteForm
+from .forms import QuoteForm, CommentForm
 from django.contrib import messages
 from django.utils.text import slugify
 
@@ -16,8 +16,17 @@ def index(request):
 
 def detail(request, slug):
     quote = get_object_or_404(Quote, slug = slug)
+    
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.quote = quote
+        comment.save()
+        return HttpResponseRedirect(quote.get_absolute_url())
+    
     context = {
-        'quote' : quote
+        'quote' : quote,
+        'form' : form,
     }
     return render(request, 'quotes/detail.html', context)
 
