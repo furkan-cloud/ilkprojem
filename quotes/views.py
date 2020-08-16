@@ -30,7 +30,9 @@ def create(request):
 
     form = QuoteForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        quote = form.save()
+        quote = form.save(commit=False)
+        quote.user = request.user
+        quote.save()
         messages.success(request, 'Başarılı bir şekilde oluşturdunuz')
         return HttpResponseRedirect(quote.get_absolute_url())
     context = {

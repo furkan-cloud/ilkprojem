@@ -10,9 +10,10 @@
         </div>
         <div class="col-md-9">
             <h1>{{ quote.name }} <small>{{ quote.created_date }}</small></h1>
+            <h4>Yazar: {{quote.user.get_full_name}}</h4>
             <hr>
             <p>
-                {{ quote.description | linebreaks }}
+                {{ quote.description|safe | linebreaks }}
             </p>
             <p><a href="{{ quote.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
                 {% if request.user.is_authenticated %}

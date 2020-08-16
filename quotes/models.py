@@ -1,13 +1,15 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 
 # Create your models here.
 
 class Quote(models.Model):
+    user = models.ForeignKey('auth.User',verbose_name='Yazar',on_delete=models.CASCADE, related_name='quotes')
     name = models.CharField(max_length=100, verbose_name='Söz Konusu')
-    description = models.TextField(verbose_name='Söz')
+    description = RichTextField(verbose_name='Söz')
     image = models.ImageField(null=True, blank=True, verbose_name='Resim')
     created_date = models.DateTimeField(auto_now_add=True)
     isPublished = models.BooleanField(default=True)

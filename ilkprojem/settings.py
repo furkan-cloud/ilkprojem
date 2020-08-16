@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # 3.parti uygulamalar
     'crispy_forms',
     'django_cleanup',
+    'ckeditor',
     # Django uygulamaları
     'django.contrib.admin',
     'django.contrib.auth',
@@ -128,11 +129,22 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+    os.path.join(BASE_DIR, 'static')
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'js/jquery-3.4.1.min.js')
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        #'toolbar': 'full',
+        #'height': 300,
+        'width': '100%',
+    },
+}
