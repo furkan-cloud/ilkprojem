@@ -24,7 +24,7 @@
                     <div class="card mb-3">
                     <div class="row">
                         <div class="col-md-6" style="max-width: 15rem;">
-                            <img class="card-img" src="{% static quote.get_image_path %}" alt="">
+                            <img class="img-responsive" src="{{ quote.image.url }}" alt="">
                         </div>
                         <div class="col-md-9">
                             <div class="card-body">
@@ -35,8 +35,10 @@
                                     {{ quote.description | linebreaks | truncatechars:50 }}
                                 </p>
                                 <p><a href="{{ quote.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
-                                    <a href="{{ quote.get_update_url }}" class="btn btn-default" role="button">Güncelle</a>
-                                    <a href="{{ quote.get_delete_url }}" class="btn btn-danger" role="button">Sil</a>
+                                    {% if request.user.is_authenticated %}
+                                        <a href="{{ quote.get_update_url }}" class="btn btn-default" role="button">Güncelle</a>
+                                        <a href="{{ quote.get_delete_url }}" class="btn btn-danger" role="button">Sil</a>
+                                    {% endif %}
                                 </p>
                                 <p class="card-text">
                                     <small class="text-muted">{{ quote.created_date | timesince }}</small>

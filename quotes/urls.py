@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 #(?P<id>\d+)/
@@ -6,9 +6,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='quotes'),
-    path('<int:quote_id>', views.detail, name= 'detail'),
-    path('search', views.search, name= 'search'),
     path('create', views.create, name= 'create'),
-    path('<int:quote_id>/update', views.update, name= 'update'),
-    path('<int:quote_id>/delete', views.delete, name= 'delete'),
+    path(r'<slug>/', views.detail, name= 'detail'),
+    path('search', views.search, name= 'search'),
+    path(r'<slug>/update', views.update, name= 'update'),
+    path(r'<slug>/delete', views.delete, name= 'delete'),
 ]

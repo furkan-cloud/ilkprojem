@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     # 3.parti uygulamalar
     'crispy_forms',
+    'django_cleanup',
     # Django uygulamaları
     'django.contrib.admin',
     'django.contrib.auth',
@@ -130,5 +131,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
